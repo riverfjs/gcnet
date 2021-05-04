@@ -1,11 +1,18 @@
 from flask import Flask
-app = Flask(__name__)
-@app.route('/')
-def hello():
-	return "Hello World!"
+from flask import render_template
+from flask import url_for
+from flask import request
 
-@app.route('/test')
-def test():
-	return "test"	
-if __name__ == 	'__main__':
-	app.run()
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == "POST":
+        a = request.form['left']
+        b = request.form['right']
+        c = int(a) + int(b)        
+        return render_template('index.html', RESULT = str(c))
+    return render_template('web/index.html')
+
+if __name__ == "__main__":
+    app.run()
